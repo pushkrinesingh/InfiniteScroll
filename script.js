@@ -1,4 +1,5 @@
 let wrapper = document.querySelector(".wrapper");
+let box= document.querySelector(".box");
 let access_key = "EWe-j4gVwI6pP1413e4mSnBFmg2WpyOgwEhJR2kKTS8";
 
 let page = 1;
@@ -39,8 +40,11 @@ function DisplayImages(data) {
   });
 }
 
-window.addEventListener("scroll", () => {
-  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 150) {
-    GetImages();
-  }
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      GetImages();
+    }
+  });
 });
+observer.observe(box);
