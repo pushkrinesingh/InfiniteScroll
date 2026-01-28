@@ -1,6 +1,4 @@
 let wrapper = document.querySelector(".wrapper");
-let box = document.querySelector(".box");
-
 let access_key = "EWe-j4gVwI6pP1413e4mSnBFmg2WpyOgwEhJR2kKTS8";
 
 let page = 1;
@@ -19,7 +17,6 @@ async function GetImages() {
     );
 
     let data = await response.json();
-    console.log(data);
     DisplayImages(data);
     page++;
   } catch (error) {
@@ -41,11 +38,9 @@ function DisplayImages(data) {
     wrapper.append(image);
   });
 }
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      GetImages();
-    }
-  });
+
+window.addEventListener("scroll", () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 150) {
+    GetImages();
+  }
 });
-observer.observe(box);
